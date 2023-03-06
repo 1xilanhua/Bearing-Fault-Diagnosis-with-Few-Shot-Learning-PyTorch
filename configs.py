@@ -9,7 +9,6 @@ n_iter = 1500
 learning_rate = 0.001
 n_val = 2
 n = 0
-save_path = ""
 save_weights_file = "weights-best-10-oneshot-low-data.hdf5"
 
 
