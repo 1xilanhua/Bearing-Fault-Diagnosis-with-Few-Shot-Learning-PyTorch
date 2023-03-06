@@ -1,3 +1,4 @@
+import os
 import torch
 import numpy as np
 
@@ -8,13 +9,15 @@ class siamese_trainer:
     def __init__(self, model, train_dataset, val_dataset, batch_size, lr, num_epochs, device):
         self.model = model.to(device)
         self.train_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True, collate_fn=custom_collate_fn)
-        self.val_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=False, collate_fn=custom_collate_fn_2)
+        self.val_loader = DataLoader(val_dataset, batch_size=batch_size, shuffle=False, collate_fn=custom_collate_fn_2)
         self.optimizer = torch.optim.Adam(model.parameters(), lr=lr)
         self.criterion = torch.nn.BCELoss()
         self.num_epochs = num_epochs
         self.device = device
 
         self.save_path = 'models'
+        if not os.path.exists(self.save_path):
+            os.mkdir(self.save_path)
         self.best_val_loss = float('inf')  # initialize with a large value
 
 
